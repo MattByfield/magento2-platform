@@ -118,7 +118,7 @@ class Platformsh
         
         $this->execute("chmod 777 var/di");
         
-        if (dir_exists('var/di')) {
+        if (is_dir('var/di')) {
          $this->log("Perms: " . substr(sprintf('%o', fileperms('./var/di')), -4) );
         }
         
