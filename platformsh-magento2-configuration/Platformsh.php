@@ -131,13 +131,13 @@ class Platformsh
     }
 
     public function resetPermissions() {
-        $this->execute("sfind . -type f -exec chmod 644 {} \;");
-        $this->execute("sfind . -type d -exec chmod 755 {} \;");
-        $this->execute("sfind ./var -type d -exec chmod 777 {} \;");
-        $this->execute("sfind ./pub/media -type d -exec chmod 777 {} \;");
-        $this->execute("sfind ./pub/static -type d -exec chmod 777 {} \;");
-        $this->execute("schmod 777 ./app/etc");
-        $this->execute("schmod 644 ./app/etc/*.xml");
+        $this->execute("find . -type f -exec chmod 644 {} \;");
+        $this->execute("find . -type d -exec chmod 755 {} \;");
+        $this->execute("find ./var -type d -exec chmod 777 {} \;");
+        $this->execute("find ./pub/media -type d -exec chmod 777 {} \;");
+        $this->execute("find ./pub/static -type d -exec chmod 777 {} \;");
+        $this->execute("chmod 777 ./app/etc");
+        $this->execute("chmod 644 ./app/etc/*.xml");
     }
 
     /**
