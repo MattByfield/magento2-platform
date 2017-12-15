@@ -121,7 +121,11 @@ class Platformsh
         if (is_dir('./var/di')) {
          $this->log("Perms: " . substr(sprintf('%o', fileperms('./var/di')), -4) );
         }
+        $this->execute("cd bin/; /usr/bin/php ./magento deploy:mode:set production --skip-compilation");
         
+        $this->log("switching back after prod set");
+
+        $this->execute("cd ../");
         $this->execute("php bin/magento setup:di:compile");
         
     }
