@@ -76,7 +76,7 @@ mounts:
 hooks:
     # We run build hooks before your application has been packaged.
     build: |
-        php ./platformsh-magento2-configurationp/magento-build.php
+        php ./platformsh-magento2-configuration/magento-build.php
 # We run deploy hook after your application has been deployed and started.
     deploy: |
         php ./vendor/platformsh/magento2-configuration/magento-deploy.php
