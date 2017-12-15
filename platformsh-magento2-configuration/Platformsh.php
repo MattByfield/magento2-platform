@@ -117,8 +117,13 @@ class Platformsh
 	    $this->execute(sprintf('mkdir %s', 'var/di'));
         
         $this->execute("chmod 777 var/di");
+        
+        if (dir_exists('var/di') {
+         $this->log("substr(sprintf('%o', fileperms('./var/di')), -4) );
+        }
+        
         $this->execute("php bin/magento setup:di:compile");
-
+        
     }
 
     /**
