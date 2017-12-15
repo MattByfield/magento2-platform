@@ -113,12 +113,12 @@ class Platformsh
 
         $this->log("Compiling generated files.");
 /* installs in developer mode so no /var/di */
-        $this->log("Manually creating /var/di...");
-	    $this->execute(sprintf('mkdir %s', 'var/di'));
+        $this->log("Manually creating ./var/di...");
+	    $this->execute(sprintf('mkdir %s', './var/di'));
         
-        $this->execute("chmod 777 var/di");
+        $this->execute("chmod 777 ./var/* -R");
         
-        if (is_dir('var/di')) {
+        if (is_dir('./var/di')) {
          $this->log("Perms: " . substr(sprintf('%o', fileperms('./var/di')), -4) );
         }
         
@@ -519,12 +519,13 @@ class Platformsh
      */
     protected function processMagentoMode()
     {
-
         $desiredApplicationMode = ($this->desiredApplicationMode) ? $this->desiredApplicationMode : self::MAGENTO_PRODUCTION_MODE;
 
         $this->log("Set Magento application to '$desiredApplicationMode' mode");
         $this->log("Changing application mode.");
-        $this->execute("cd bin/; /usr/bin/php ./magento deploy:mode:set $desiredApplicationMode --skip-compilation");
+
+//        $this->execute("cd bin/; /usr/bin/php ./magento deploy:mode:set $desiredApplicationMode --skip-compilation");
+        $this->execute("cd bin/; /usr/bin/php ./magento deploy:mode:set production --skip-compilation");
         if ($desiredApplicationMode == self::MAGENTO_DEVELOPER_MODE) {
             $locales = '';
             $output = $this->executeDbQuery("select value from core_config_data where path='general/locale/code';");
