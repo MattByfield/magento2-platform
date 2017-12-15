@@ -112,7 +112,9 @@ class Platformsh
         $this->execute("php bin/magento module:enable --all");
 
         $this->log("Compiling generated files.");
-
+/* installs in developer mode so no /var/di */
+        $this->log("Manually creating /var/di...");
+	$this->execute(sprintf('mkdir %s', './var/di'));
         $this->execute("php bin/magento setup:di:compile");
     }
 
