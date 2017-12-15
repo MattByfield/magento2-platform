@@ -118,16 +118,26 @@ class Platformsh
         
         $this->execute("chmod 777 ./var/* -R");
         
-        if (is_dir('./var/di')) {
-         $this->log("Perms: " . substr(sprintf('%o', fileperms('./var/di')), -4) );
-        }
-        $this->execute("cd bin/; /usr/bin/php ./magento deploy:mode:set production --skip-compilation");
-        
-        $this->log("switching back after prod set");
 
-        $this->execute("cd ../");
+        if (is_dir('./var/di')) {
+            $this->log("Perms: " . substr(sprintf('%o', fileperms('./var/di')), -4) );
+        }
+//      $this->execute("cd bin/; /usr/bin/php ./magento deploy:mode:set production --skip-compilation"); 
+//      $this->log("switching back after prod set");
+//      $this->execute("cd ../");
+        $this->resetPermissions();
         $this->execute("php bin/magento setup:di:compile");
         
+    }
+
+    public function resetPermissions() {
+        $this->execute("sfind . -type f -exec chmod 644 {} \;");
+        $this->execute("sfind . -type d -exec chmod 755 {} \;");
+        $this->execute("sfind ./var -type d -exec chmod 777 {} \;");
+        $this->execute("sfind ./pub/media -type d -exec chmod 777 {} \;");
+        $this->execute("sfind ./pub/static -type d -exec chmod 777 {} \;");
+        $this->execute("schmod 777 ./app/etc");
+        $this->execute("schmod 644 ./app/etc/*.xml");
     }
 
     /**
